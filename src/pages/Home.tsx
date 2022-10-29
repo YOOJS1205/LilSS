@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,9 +7,9 @@ import Button from '../components/Button';
 
 export default function Home() {
   const navigate = useNavigate();
-  const onClickStartButton = () => {
+  const onClickStartButton = useCallback(() => {
     navigate('/price');
-  };
+  }, []);
   return (
     <Container>
       <Title>간편하게 송금해보세요.</Title>
