@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { atom } from 'recoil';
+import { atom, useRecoilState } from 'recoil';
+import { v1 } from 'uuid';
 
 import Container from '../components/Container';
 import Button from '../components/Button';
@@ -10,9 +11,14 @@ interface IProps {
   onClick: any;
 }
 
+export const priceState = atom({
+  key: `priceState/${v1()}`,
+  default: '',
+});
+
 export default function Price() {
   const navigate = useNavigate();
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useRecoilState(priceState);
 
   const onClickSendButton = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -72,7 +78,10 @@ export default function Price() {
   );
 }
 
-const SendPrice = styled.h1``;
+const SendPrice = styled.h1`
+  margin-top: 80px;
+  font-size: 32px;
+`;
 
 const Buttons = styled.div<IProps>`
   font-size: 20px;
@@ -81,6 +90,7 @@ const Buttons = styled.div<IProps>`
     list-style: none;
     display: flex;
     justify-content: space-between;
+    margin-right: 40px;
   }
   li {
     cursor: pointer;
